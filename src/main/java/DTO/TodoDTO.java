@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class TodoDTO {
 	private int section_Id;
+	private String section_Name;
 	private int todo_Id; // 할일 id
 	private String part_Id; // 담당 ID
 	private String todo_Content; // 작업 용
@@ -18,6 +19,12 @@ public class TodoDTO {
 	}
 	public void setSection_Id(int section_Id) {
 		this.section_Id = section_Id;
+	}
+	public String getSection_Name() {
+		return section_Name;
+	}
+	public void setSection_Name(String section_Name) {
+		this.section_Name = section_Name;
 	}
 	public int getTodo_Id() {
 		return todo_Id;

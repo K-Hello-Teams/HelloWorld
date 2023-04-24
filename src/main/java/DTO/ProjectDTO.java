@@ -10,6 +10,14 @@ public class ProjectDTO {
 	private String pro_end;
 	private String pro_start_date;
 	private String pro_end_date;
+	private String mem_Name;
+	
+	public String getMem_Name() {
+		return mem_Name;
+	}
+	public void setMem_Name(String mem_Name) {
+		this.mem_Name = mem_Name;
+	}
 	public int getPro_id() {
 		return pro_id;
 	}

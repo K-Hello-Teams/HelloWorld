@@ -1,125 +1,299 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="UTF-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<title>Dashboard - SB Admin</title>
+<title>프로젝트 섹션</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
 	rel="stylesheet" />
-<link href="../css/styles.css" rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<link href="<%=request.getContextPath()%>/css/system.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
 	crossorigin="anonymous"></script>
 </head>
-<!-- CSS -->
-<style>
-#buttonim:hover {
-	background-color: darkgray;
-}
 
-#buttonim:active {
-	background-color: darkslategray;
-}
-
-.test5 {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-contenty {
-	background-color: #fefefe;
-	margin: 20% auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-	max-width: 600px;
-	text-align: center;
-	position: relative;
-	transform: translate(-100%);
-	transition: transform 0.3s ease-out;
-}
-
-.test5	.show {
-	display: block;
-}
-
-.test5.show .modal-contenty {
-	transform: translateY(0);
-}
-
-
-</style>
 
 <body class="sb-nav-fixed">
-	<jsp:include page="../toolbar/toolbar_dark.jsp"/>
-		<div id="layoutSidenav_content">
-			<main>
-				<div class="container-fluid px-4">
-					<h1 class="mt-4">������Ʈ ����</h1>
-					<ol class="breadcrumb mb-4">
-						<li class="breadcrumb-item active"></li>
-					</ol>
-					<button id="buttonim" onclick="openModal()"
-						style="border: 1px solid gray; margin-bottom: 5px; border-radius: 8px;">+
-						�۾� �߰�</button>
-					<div id="test5" class="test5">
-						<div class="modal-contenty">
-							<span class="closey" onclick="closeModal()">&times;</span>
-							<p>�˾� �׽�Ʈ</p>
-						</div>
+	<jsp:include page="../toolbar/toolbar_dark.jsp" />
+	<%@ include file="TodoPopUp.jsp"%>
+	<div id="layoutSidenav_content">
+		<main>
+			<div class="container-fluid px-4">
+				<h1 class="mt-5">프로젝트 섹션</h1>
+				<ol class="breadcrumb mb-4">
+					<li class="breadcrumb-item active"></li>
+				</ol>
+				<button id="show_modal"
+					style="border: 1px solid gray; margin-bottom: 5px; border-radius: 8px;">+
+					작업 추가</button>
+				<div class="card mb-5">
+					<div class="card-header">
+						<i class="fas fa-table me-1"></i>
 					</div>
-					<div class="card mb-5">
-						<div class="card-header">
-							<i class="fas fa-table me-1"></i> Ķ����
-						</div>
-						<div class="card-body"></div>
-					</div>
-				</div>
-			</main>
-			<footer class="py-4 bg-light mt-auto">
-				<div class="container-fluid px-4">
-					<div
-						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2023</div>
+					<div class="card-body">
 						<div>
-							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
-								&amp; Conditions</a>
+							<ul class="sect_id_check" style="line-height: 2em;">
+					<c:choose>
+						<c:when test="${sectionList.size()==0}">
+							<li>프로젝트 섹션이 나누어지지 않았습니다.</li>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${sectionList}" var="list" varStatus="stat">
+								<li>
+									<button class="btn_show_hide" style="background: none;border: none;font-weight: bolder;"
+										type="button" name="${list.section_id}"
+										value="${list.section_id}" >${list.section_name}</button>
+									
+										<button>
+											<i class="fas fa-ellipsis-h"></i>
+										</button>
+									<button class="btn_keep_sect">보관</button>
+									<button class="btn_del_sect" value="${list.section_id}">삭제</button>
+								</li>
+								<ul style="display: none">
+									<c:forEach items="${todoList}" var="tlist" varStatus="stat">
+										<c:choose>
+											<c:when test="${list.section_id eq tlist.section_Id}">
+												<li>
+													<input type="checkbox" class="td_check">
+													<span class="td_todo_content">${tlist.todo_Content}</span>
+													<span class="td_todo_part">${tlist.part_Name}</span>
+													<span class="td_todo_date">${tlist.todo_Start_Date}</span>
+													<span class="td_todo_date">${tlist.todo_End_Date}</span>
+													<span class="td_todo_status">${tlist.todo_Status}</span>
+													<span style="display:none">${tlist.todo_info}</span>
+													<span style="display:none">${tlist.todo_Id}</span>
+													<span style="display:none">${tlist.part_Id}</span>
+													<span style="display:none">${list.section_id}</span>
+													<span style="display:none">${list.section_name}</span>													
+													<span>
+														<button class="pop_edit_del"type="button">
+															<i class="fas fa-ellipsis-h"></i>
+														</button>
+													</span>
+													<span><button class="edit_todo_btn" value="${tlist.part_Name},${tlist.todo_Content}">수정</button></span>
+													<span><button class="btn_del_todo" value="${tlist.todo_Id}">삭제</button></span>
+													
+												</li>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+								</ul>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</ul>
 						</div>
+					<div id ="section_div" class="none">
+						<input type="text" placeholder="섹션 명을 입력해주세요." id="create_section"/><button id="btn_cre_sect">생성</button>
+					</div>
+						<button id="show_sect_create_div">+ 섹션 추가</button>
 					</div>
 				</div>
-			</footer>
-		</div>
+				<%@ include file="EditTodo.jsp"%>
+			</div>
+		</main>
+		<footer class="py-4 bg-light mt-auto">
+			<div class="container-fluid px-4">
+				
+			</div>
+		</footer>
 	</div>
-
-
-
-	<!-- JavaScript -->
-	<script>
-</script>
+	
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
-	<script src="../js/scripts.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-		crossorigin="anonymous"></script>
-	<script src="assets/demo/chart-area-demo.js"></script>
-	<script src="assets/demo/chart-bar-demo.js"></script>
+	<script src="<%=request.getContextPath()%>/js/scripts.js"></script>
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
 		crossorigin="anonymous"></script>
-	<script src="../js/datatables-simple-demo.js"></script>
+	
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+		crossorigin="anonymous"></script>
+	<script
+		src="<%=request.getContextPath()%>/js/datatables-simple-demo.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+		integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+		crossorigin="anonymous"></script>
+
+	<script>
+	function openModal() {
+	    var modal = document.getElementById('todoPopUp');
+	    modal.classList.remove('none');
+	    modal.classList.add('showTodo');
+	}
+	  
+	  
+	const modalBtn = document.querySelector('#show_modal');
+	  
+	modalBtn.addEventListener('click', () => toggleDisplay('block'));
+
+	if($("#section_div").attr('class')=="showTodo"){
+		$('div').click(function(){
+			$("#section_div").addClass("none");
+			$("#section_div").removeClass("showTodo");		
+		})
+	}
+
+	$("#show_sect_create_div").on('click',(e)=>{
+		if($("#section_div").attr('class')=="showTodo"){
+			$("#section_div").addClass("none");
+			$("#section_div").removeClass("showTodo");
+		}else{		
+			$("#section_div").addClass("showTodo");
+			$("#section_div").removeClass("none");
+		}
+	})
+		
+	$("#btn_cre_sect").on('click',(e)=>{
+		$.ajax({
+			url : "./SectionTodo/addSection.do",  // 요청 URL
+			type : "post",                  // HTTP 메서드
+			data : {                       // 매개변수로 전달할 데이터
+				create_sec_Name : $("#create_section").val()
+			},
+			dataType : "text",      // 응답 데이터 형식
+			success : function(){
+				alert("생성되었습니다.")
+				location.reload();
+			},
+			error : function(){
+				alert("tlqkf");
+			}
+			})
+	})
+	$(".btn_del_sect").on('click',(e)=>{
+		console.log($(e.target).val());
+		let count = 0;
+		let leng = $(e.target).parent().next().children().find('input')
+		leng.each(function(){
+			if($(this).prop("checked")){
+				console.log($(this).prop("checked"));	
+				count++;
+			}
+		})
+			if(leng.length==count || count==0){
+				console.log("아작스 실행")
+				if(confirm('정말 삭제하시겠습니까?')){
+					$.ajax({
+						url : "../SectionTodo/SecDel.do",  // 요청 URL
+						type : "post",                  // HTTP 메서드
+						data : {                       // 매개변수로 전달할 데이터
+							section_id : $(e.target).val()
+						},
+						dataType : "text",      // 응답 데이터 형식
+						success : function(){
+							alert("삭제되었습니다.")
+							location.reload();
+						},
+						error : function(){
+							alert("tlqkf");
+						}
+					})
+				}
+			}
+			else{
+				alert("삭제 하지마");
+			}
+
+
+		
+	})
+		//if($(e.target).parent().next().children().find('input[checked="true"]').length==leng){
+		//}
+
+
+
+	$(".td_check").on('click',(e)=>{
+		//console.log($(e.target).prev().nextUntil('span[class="td_todo_status"]'))
+		console.log($(e.target).val());
+		if($(e.target).is(':checked')){
+			$.ajax({
+				url : "<%=request.getContextPath()%>/SectionTodo/status.do",  // 요청 URL
+				type : "post",                  // HTTP 메서드
+				data : {                       // 매개변수로 전달할 데이터
+					todo_id : $(e.target).val()
+				},
+				dataType : "text",      // 응답 데이터 형식
+				success : function(){
+					$(e.target).nextUntil('span[class="td_todo_status"]').next().css({"text-decoration": "line-through", "color": "gray"});
+					$(e.target).next().next().next().next().next().text("END");
+					$(e.target).next().next().next().next().next().next().next().next().next().next().next().next().addClass("none");
+					//location.reload();
+				},
+				error : function(){
+					alert("tlqkf");
+				}
+			})
+		}
+		else{
+			$(e.target).nextUntil('span[class="td_todo_status"]').next().css({"text-decoration": "", "color": ""});
+			$(e.target).next().next().next().next().next().text("START");
+			
+			$(e.target).next().next().next().next().next().next().next().next().next().next().next().next().removeClass("none");
+			$(e.target).next().next().next().next().next().next().next().next().next().next().next().next().addClass("inline_span");
+		}
+	});
+		
+	  
+	  
+	$(".btn_show_hide").on('click',(e)=>{
+		let a = $(e.target).parent().next();
+		if(a.is("ul")){
+			a.toggle();
+		}
+	})
+		
+	$(".btn_del_todo").on('click',(e)=>{
+		if(confirm('정말 삭제하시겠습니까?')){
+			$.ajax({
+		 	    url : "./SectionTodo/todoDelete.do",  // 요청 URL
+		 	    type : "post",                  // HTTP 메서드
+		 	    data : {                       // 매개변수로 전달할 데이터
+		 	        todo_id : $(e.target).val()
+		 	        },
+		 	    dataType : "text",      // 응답 데이터 형식
+		 	    success : function(){
+		 	    	location.reload();
+		 	    },
+		 	    		  // 요청 성공 시 호출할 메서드 설정
+		 	    error : function(){
+		 	    	alert("tlqkf");
+		 	    }         // 요청 실패 시 호출할 메서드 설정
+			});
+		}
+	})
+
+
+	$(".edit_todo_btn").on('click',(e)=>{
+		var content = $(e.target).parent().parent().children()[1].textContent; //할일 내용
+	    var name = $(e.target).parent().parent().children()[2].textContent; //담당자 이름
+	    var todo_id = $(e.target).parent().parent().children()[7].textContent; //할일 id
+	    var name_id = $(e.target).parent().parent().children()[8].textContent; //담당자 이름
+	    var sect_id = $(e.target).parent().parent().children()[9].textContent; //
+	    var sect_name = $(e.target).parent().parent().children()[10].textContent;
+	    var end_date = $(e.target).parent().parent().children()[4].textContent;
+	    var status = $(e.target).parent().parent().children()[5].textContent;
+	    var info = $(e.target).parent().parent().children()[6].textContent;
+		console.log(todo_id);
+		//값 넘기기
+		$("#edit_todo").val(content);	//수정 창에 할일 값
+	    $("#todo_name").val(name_id).prop("selected",true);		//작성자
+	    $("#edit_todo_id").val(todo_id);
+	    $("#edit_end_date").val(end_date); //마감일
+	    $("#edit_sectName").val(sect_id).prop("selected",true); //섹션 명
+	    $("#edit_status").val(status);	//상태
+	    $("#edit_info").val(info);	//설명
+	})
+
+</script>
 </body>
 </html>

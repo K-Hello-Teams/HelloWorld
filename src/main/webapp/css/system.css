@@ -17,7 +17,7 @@
 	display: block;
 }
 #todoPopUp{
-	border: 1px solid gray; border-radius: 10px; box-shadow: 3px 3px gray; min-width: 500px; max-width: 500px; min-height: 250px;
+	border: 1px solid gray; border-radius: 10px; box-shadow: 3px 3px gray; min-width: 500px; max-width: 500px; min-height: 260px;
 }
 .closey {
     cursor: pointer;
@@ -70,8 +70,8 @@ li{
 
 .popup_modal {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 45%;
+  left: 54.5%;
   transform: translate(-50%, -50%);
   background-color: #ffffff;
   box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
@@ -91,6 +91,6 @@ li{
 #sidePop{
 	display: inline-block;
 	height: 100%;
-	margin-left: 80% ;
+	margin-left: 77% ;
 }
 

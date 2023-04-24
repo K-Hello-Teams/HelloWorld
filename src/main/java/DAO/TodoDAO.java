@@ -16,7 +16,7 @@ public class TodoDAO extends JDBConnPool {
 	
 	public List<TodoJoinDTO> viewTodo() {
 		List<TodoJoinDTO> li = new ArrayList();
-		String sql = "select * from todo left join mem on todo.part_id=mem.id";
+		String sql = "select * from todo left join mem on todo.part_id=mem.mem_id";
 		try {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
@@ -31,7 +31,7 @@ public class TodoDAO extends JDBConnPool {
 				dto.setTodo_info(rs.getString("todo_info"));
 				dto.setTodo_Status(rs.getString("todo_status"));
 				dto.setTodo_Rank(rs.getString("todo_rank"));
-				dto.setPart_Name(rs.getString("name"));
+				dto.setPart_Name(rs.getString("mem_name"));
 				System.out.println("할일 불러오던 id : " + rs.getInt("todo_id"));
 				li.add(dto);
 			}
@@ -79,27 +79,26 @@ public class TodoDAO extends JDBConnPool {
 	}
 
 	// 내 할일 #화면 : 메인페이지
-	public List<TodoDTO> viewTodo(int pro_id, String part_id,int todo_id, String status) {
+	public List<TodoDTO> viewTodo(int pro_id, String part_id,String status) {
 		List<TodoDTO> li = new ArrayList();
 
-		String sql = "select * from todo"
-				+ " where pro_id=? and part_id=? and todo_id=? and status=?";
+		String sql = "select * from todo t, section s where t.section_id =s.section_id and pro_id=? and part_id=? and todo_status!=?";
 		try {
-			TodoDTO dto = new TodoDTO();
 			psmt = con.prepareStatement(sql);
 			psmt.setInt(1, pro_id);
 			psmt.setString(2, part_id);			
-			psmt.setInt(3, todo_id);
-			psmt.setString(4, status);
+			psmt.setString(3, status);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
+				TodoDTO dto = new TodoDTO();
 				dto.setSection_Id(rs.getInt("section_id"));
+				dto.setSection_Name(rs.getString("section_name"));
 				dto.setTodo_Content(rs.getString("todo_content"));
 				dto.setTodo_Id(rs.getInt("todo_id"));
 				dto.setTodo_End_Date(sdformat.format(rs.getDate("end_date")));
+				System.out.println("todo_content");
 				li.add(dto);
-			}
-			;
+			};
 
 		} catch (Exception e) {
 			System.out.println("메인화면에서 할일 불러오던 중 에러");
@@ -204,6 +203,20 @@ public class TodoDAO extends JDBConnPool {
 			System.out.println("세션 삭제 중 에러");
 			e.printStackTrace();
 		}
+		return result;
+	}
+	public int deleteTodoAll(int section_id) {
+		int result = 0;
+		String sql = "delete from todo where section_id=?";
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setInt(1, section_id);
+			result = psmt.executeUpdate();
+		}catch(Exception e) {
+			System.out.println("섹션에 해당하는 할 일 전부 삭제 중 에러");
+			e.printStackTrace();
+		}
+		
 		return result;
 	}
 }

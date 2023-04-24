@@ -51,7 +51,7 @@ public class todoAddController extends HttpServlet{
 			System.out.println("실패");
 		}
 		else {
-			AlertFunc.alertLocation(resp, "작업이 등록되었습니다.", "../SectionTodo/SectionView.do?pro_id=0001");
+			AlertFunc.alertLocation(resp, "작업이 등록되었습니다.", "../SectionView.do");
 		}
 	}
 }

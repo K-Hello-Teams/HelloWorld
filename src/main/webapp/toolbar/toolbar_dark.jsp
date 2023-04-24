@@ -15,14 +15,18 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
 	rel="stylesheet" />
-<link href="../css/styles.css" rel="stylesheet" />
+<link href="<%=request.getContextPath()%>/css/styles.css"
+	rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
 	crossorigin="anonymous"></script>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<!-- Navbar Brand-->
-		<a class="navbar-brand ps-3" href="../index.jsp">Hello Teams</a>
+		<a class="navbar-brand ps-3" href="<%=request.getContextPath()%>/ConnectMain.do">Hello
+			Teams</a>
 		<!-- Sidebar Toggle-->
 		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
 			id="sidebarToggle" href="#!">
@@ -53,10 +57,8 @@
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading">홈</div>
-						<a class="nav-link" href="index.html">
-							<div class="sb-nav-link-icon">
-								<i class="fas fa-tachometer-alt"></i>
-							</div>메인페이지
+						<a class="nav-link" href="<%=request.getContextPath()%>/ConnectMain.do">
+							메인페이지
 						</a>
 						<div class="sb-sidenav-menu-heading">업무</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -72,7 +74,7 @@
 						<div class="collapse" id="collapseLayouts"
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="layout-static.jsp">프로젝트 섹션</a> <a
+								<a class="nav-link" href="<%=request.getContextPath()%>/SectionView.do">프로젝트 섹션</a> <a
 									class="nav-link" href="layout-sidenav-light.jsp">내 작업</a>
 							</nav>
 						</div>
@@ -101,9 +103,10 @@
 									aria-labelledby="headingOne"
 									data-bs-parent="#sidenavAccordionPages">
 									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="Board/Notice.jsp">공지 게시판</a> <a
-											class="nav-link" href="Board/List.jsp">게시물 목록</a> <a
-											class="nav-link" href="Board/Write.jsp">게시물 작성</a>
+										<a class="nav-link" href="<%=request.getContextPath()%>/board/notice.do">공지
+											게시판</a> <a class="nav-link" href="<%=request.getContextPath()%>/board/list.do">자유
+											게시판</a> <a class="nav-link" href="<%=request.getContextPath()%>/board/write.do">게시물
+											작성</a>
 									</nav>
 								</div>
 								<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -117,19 +120,20 @@
 									aria-labelledby="headingOne"
 									data-bs-parent="#sidenavAccordionPages">
 									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="401.jsp">받은 쪽지함</a> <a
-											class="nav-link" href="404.jsp">보낸 쪽지함</a> <a
-											class="nav-link" href="500.jsp">쪽지 보관함</a>
+										<a class="nav-link" href="<%=request.getContextPath()%>/pro/receiveList.do">받은
+											쪽지함</a> <a class="nav-link" href="<%=request.getContextPath()%>/pro/SendList.do">보낸
+											쪽지함</a> <a class="nav-link" href="<%=request.getContextPath()%>/pro/keepList.do">쪽지
+											보관함</a>
 									</nav>
 								</div>
 							</nav>
 						</div>
-						<div class="sb-sidenav-menu-heading">미정메뉴</div>
-						<a class="nav-link" href="charts.jsp">
+						<div class="sb-sidenav-menu-heading"></div>
+						<a class="nav-link" href="<%=request.getContextPath()%>/Mypage.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-chart-area"></i>
 							</div> 마이 페이지
-						</a> <a class="nav-link" href="tables.jsp">
+						</a> <a class="nav-link" href="<%=request.getContextPath()%>/Manage.jsp">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-table"></i>
 							</div> 관리자 페이지

@@ -24,13 +24,7 @@ public class TodoEditController extends HttpServlet{
 		int edit_Section = Integer.parseInt(req.getParameter("edit_Section"));
 		String edit_status = req.getParameter("edit_status");
 		String edit_info = req.getParameter("edit_info");
-		System.out.println(edit_todo_id);
-		System.out.println(edit_todo_content);
-		System.out.println(edit_PIC);
-		System.out.println(edit_end_date);
-		System.out.println(edit_Section);
-		System.out.println(edit_status);
-		System.out.println(edit_info);
+
 		
 		TodoDTO dto = new TodoDTO();
 		dto.setTodo_Id(edit_todo_id);
@@ -46,7 +40,7 @@ public class TodoEditController extends HttpServlet{
 		dao.close();
 		if(result>0) {
 			//req.getRequestDispatcher("/SectionTodo/SectionView.do").forward(req, resp);
-			AlertFunc.alertLocation(resp, "작업이 등록되었습니다.", "../SectionTodo/SectionView.do");
+			AlertFunc.alertLocation(resp, "작업이 등록되었습니다.", "../SectionView.do");
 			
 		}
 		else {

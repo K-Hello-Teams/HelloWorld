@@ -11,9 +11,9 @@
 <body>
 	<div class="window_modal">
 		<div id="todoPopUp" class="popup_modal">
-			<h2 style="text-align: center;">작업<c:if test="add">추가</c:if></h2>
+			<h2 style="text-align: center; margin-top:16px">작업<c:if test="add">추가</c:if></h2>
 			<span id="close" style="position: absolute; top: 10px; right: 20px; cursor:pointer;">x</span>
-			<form action="../SectionTodo/addTodo.do" " method="post"
+			<form action="<%=request.getContextPath()%>/SectionTodo/addTodo.do" " method="post"
 				id="SectionPopUp" style="width: 100%; height: 100%;">
 				<table style="margin: auto;" id="PopUptable">
 					<tr>

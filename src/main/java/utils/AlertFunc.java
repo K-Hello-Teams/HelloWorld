@@ -36,6 +36,18 @@ public class AlertFunc {
 			e.printStackTrace();
 		}
 	}
+	public static void alertLocation(HttpServletResponse resp, String url) {	
+		try {
+			resp.setContentType("text/html;charset=UTF-8");
+			PrintWriter writer=resp.getWriter();
+			writer = resp.getWriter();
+			String script = "<script>"+"location.href='"+url+"';"+"</script>";
+			writer.println(script);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public static void alertBack(HttpServletResponse resp ,String msg) {
 		try {
 			resp.setContentType("text/html;charset=UTF-8");
@@ -54,6 +66,17 @@ public class AlertFunc {
 			writer = resp.getWriter();
 			String script = "<script>"+"alert('"+msg+"');"+"window.close();"+"</script>";
 			writer.println(script);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void alert(HttpServletResponse resp ,String msg) {
+		try {
+			resp.setContentType("text/html;charset=UTF-8");
+			PrintWriter writer=resp.getWriter();
+			writer = resp.getWriter();
+			String script = "<script>"+"alert('"+msg+"');</script>";
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

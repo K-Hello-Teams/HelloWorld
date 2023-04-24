@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import DAO.SectionDAO;
 import DTO.SectionDTO;
@@ -18,19 +19,20 @@ import utils.AlertFunc;
 public class SectionAddController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		int project_id = (int)session.getAttribute("pro_id");
+		String user_id = (String)session.getAttribute("user_id");
 		System.out.println("이게 왜 나와");
 		SectionDTO dto = new SectionDTO();
-		int project_id = 0001;//Integer.parseInt(req.getParameter("pro_id"));
-		//project_id= 0001;
-		String content = req.getParameter("work_content");
-		String writer = "test1";
+
+		String content = req.getParameter("create_sec_Name");
 		System.out.println(project_id);
 		System.out.println(content);
-		System.out.println(writer);
+
 
 		dto.setProject_id(project_id);
 		dto.setSection_name(content);
-		dto.setWrite_Id(writer);
+		dto.setWrite_Id(user_id);
 		SectionDAO dao = new SectionDAO();
 		int result = dao.addSection(dto);
 		dao.close();

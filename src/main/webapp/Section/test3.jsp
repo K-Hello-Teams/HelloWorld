@@ -16,7 +16,6 @@
 	<div>
 		<button id="show_modal">+ 작업 추가</button>
 		<div>
-			<div></div>
 			<div>
 				<ul class="sect_id_check">
 					<c:choose>
