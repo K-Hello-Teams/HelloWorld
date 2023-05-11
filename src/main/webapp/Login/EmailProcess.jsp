@@ -14,9 +14,9 @@
     pageEncoding="UTF-8"%>
 <%
 	//메일 보내기 가능
-	String from = "xorbs465@naver.com";
-	String username = "xorbs465@naver.com";
-	String pass = "tjems159357@";
+	String from = "받는 이메일";
+	String username = "보내는 이메일";
+	String pass = "보내는 이메일 패스워드";
 
 	String code = request.getParameter("code").toString();
 	System.out.println(code);
